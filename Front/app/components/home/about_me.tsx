@@ -19,9 +19,9 @@ function AboutMe() {
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] bg-blue-500/20 rounded-full blur-[100px] lg:blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] bg-cyan-500/20 rounded-full blur-[100px] lg:blur-[120px] pointer-events-none" />
 
-      <div className="container relative z-10 flex flex-col lg:flex-row w-full gap-16 lg:gap-24 items-center px-4 lg:px-0">
+      <div className="container relative z-10 flex flex-col lg:flex-row w-full gap-16 lg:gap-24 items-center justify-between px-4 md:px-6 mx-auto max-w-7xl">
         {/* Content */}
-        <div ref={textRef} className="flex flex-col w-full lg:w-1/2 gap-8">
+        <div ref={textRef} className="flex flex-col w-full lg:w-[55%] gap-8">
           <div className="flex flex-col text-white gap-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 w-fit backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
@@ -97,7 +97,10 @@ function AboutMe() {
         </div>
 
         {/* image / video */}
-        <div ref={videoRef} className="w-full lg:w-1/2 relative mt-12 lg:mt-0">
+        <div
+          ref={videoRef}
+          className="w-full lg:w-[45%] relative mt-12 lg:mt-0"
+        >
           <div className="relative w-full aspect-square max-w-[400px] lg:max-w-[500px] mx-auto">
             {/* Outer rings for decoration */}
             <div className="absolute inset-0 border border-white/10 rounded-full scale-[1.05] transition-transform duration-700 hover:scale-[1.1]"></div>

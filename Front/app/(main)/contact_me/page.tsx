@@ -66,21 +66,21 @@ const SERVICES = [
 
 const CONTACT_INFO = [
   {
-    icon: "/home/icon/contact/ic_outline-email.svg",
+    icon: "/contact/icon/weui_email-outlined.svg",
     label: "Email Address",
-    value: "hello@meowdesigner.com",
-    href: "mailto:hello@meowdesigner.com",
+    value: "phouphetchanthalungsy40@gmail.com",
+    href: "mailto:phouphetchanthalungsy40@gmail.com",
   },
   {
-    icon: "/home/icon/contact/carbon_phone.svg",
+    icon: "/contact/icon/proicons_call.svg",
     label: "Phone Number",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "+856 20 7797 4191",
+    href: "tel:+8562077974191",
   },
   {
-    icon: "/home/icon/contact/carbon_location.svg",
+    icon: "/contact/icon/carbon_location.svg",
     label: "Location",
-    value: "San Francisco, CA",
+    value: "Vientiane, Laos",
     href: "https://maps.google.com",
   },
 ];
@@ -183,16 +183,38 @@ function ContactPage() {
     e.preventDefault();
     if (!validate()) return;
     setStatus("loading");
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus("success");
-    setForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      service: "",
-      message: "",
-    });
+
+    try {
+      const res = await fetch("http://localhost:3001/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          phone: form.phone,
+          service: form.service,
+          message: form.message,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to send message");
+
+      setStatus("success");
+      setForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      setStatus("idle");
+    }
   }
 
   return (

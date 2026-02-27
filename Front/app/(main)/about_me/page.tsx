@@ -86,6 +86,7 @@ function About() {
                 src="/home/image/Rectangle 8-1.png"
                 alt="Portrait"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"></div>
@@ -162,6 +163,7 @@ function About() {
                 src="/home/image/Rectangle 8-1.png"
                 alt="Collaboration"
                 fill
+                sizes="(max-width: 768px) 100vw, 100vw"
                 className="object-cover opacity-40 group-hover:opacity-50 group-hover:scale-105 transition-all duration-1000"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent"></div>

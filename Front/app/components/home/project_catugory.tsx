@@ -5,67 +5,39 @@ import Image from "next/image";
 import Link from "next/link";
 import { useGsapReveal } from "../../hooks/useGsapReveal";
 
-const PROJECTS = [
-  {
-    id: 1,
-    href: "#",
-    image: "/home/image/Rectangle 8-1.png",
-    category: "Website",
-    title: "E-Commerce Platform",
-    description: "A responsive e-commerce website with modern UI/UX design.",
-    tags: ["Next.js", "Figma", "Tailwind CSS"],
-  },
-  {
-    id: 2,
-    href: "#",
-    image: "/home/image/Rectangle 8-1.png",
-    category: "Mobile App",
-    title: "Mobile Banking App",
-    description:
-      "Secure mobile banking application with real-time transactions.",
-    tags: ["React Native", "TypeScript", "Firebase"],
-  },
-  {
-    id: 3,
-    href: "#",
-    image: "/home/image/Rectangle 8-1.png",
-    category: "Branding",
-    title: "Brand Identity",
-    description: "Complete brand identity design for tech startup.",
-    tags: ["Figma", "Adobe XD", "Illustration"],
-  },
-  {
-    id: 4,
-    href: "#",
-    image: "/home/image/Rectangle 8-1.png",
-    category: "Website",
-    title: "SaaS Dashboard",
-    description: "Analytics dashboard for data visualization and management.",
-    tags: ["React", "Chart.js", "Node.js"],
-  },
-];
+export interface ProjectType {
+  id: number;
+  title: string;
+  category: string;
+  image: string;
+  coverImage: string | null;
+  description: string;
+  tags: string[];
+  link: string | null;
+}
 
-function ProjectCard({
-  href,
-  image,
-  category,
-  title,
-  description,
-  tags,
-}: (typeof PROJECTS)[0]) {
+function ProjectCard({ project }: { project: ProjectType }) {
+  const isBackendImage = project.image.startsWith("/uploads");
+  const backendUrl = "http://localhost:3001";
+  const imageUrl = isBackendImage
+    ? `${backendUrl}${project.image}`
+    : project.image.startsWith("http") || project.image.startsWith("/")
+      ? project.image
+      : `/${project.image}`;
+
   return (
     <Link
-      href={href}
-      className="group relative flex flex-col rounded-3xl overflow-hidden hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] transition-all duration-500 bg-white/2 border border-white/10 backdrop-blur-sm hover:-translate-y-2 h-full"
+      href={`/my_project/${project.id}`}
+      className="group relative flex flex-col rounded-3xl overflow-hidden hover:shadow-[0_0_40px_rgba(34,211,238,0.15)] transition-all duration-500 bg-[#0a0a0a] border border-white/5 hover:border-white/10 backdrop-blur-sm hover:-translate-y-1 h-full"
     >
       {/* Image container */}
-      <div className="relative h-60 overflow-hidden bg-gray-900 border-b border-white/5">
+      <div className="relative h-60 overflow-hidden bg-[#0a0a0a] border-b border-white/5">
         <Image
-          src={image}
-          alt={title}
-          width={500}
-          height={400}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+          src={imageUrl}
+          alt={project.title}
+          fill
+          unoptimized={isBackendImage}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
         />
         {/* Overlay gradient on hover */}
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -91,38 +63,35 @@ function ProjectCard({
       {/* Content */}
       <div className="p-6 md:p-8 flex flex-col grow gap-4 relative z-10">
         <div>
-          <p className="text-cyan-400 text-xs font-semibold tracking-wider uppercase mb-2">
-            {category}
+          <p className="text-cyan-500 text-xs font-bold uppercase tracking-wider mb-2">
+            {project.category}
           </p>
-          <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors duration-300">
-            {title}
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+            {project.title}
           </h3>
         </div>
 
-        <p className="text-gray-400 text-sm md:text-base leading-relaxed grow">
-          {description}
+        <p className="text-gray-400 text-sm leading-relaxed grow line-clamp-3">
+          {project.description}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 pt-6 border-t border-white/10">
-          {tags.map((tag) => (
+        <div className="flex flex-wrap gap-2 pt-6 mt-auto">
+          {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 text-xs font-medium rounded-full text-gray-300 border border-white/10 bg-black/40 backdrop-blur-md transition-colors group-hover:border-cyan-500/30 group-hover:text-cyan-100"
+              className="px-4 py-1.5 text-xs font-medium rounded-full bg-transparent border border-white/10 text-gray-400 transition-colors hover:text-white"
             >
               {tag}
             </span>
           ))}
         </div>
       </div>
-
-      {/* Background glow on hover */}
-      <div className="absolute inset-0 bg-linear-to-tr from-blue-500/0 via-cyan-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/10 pointer-events-none transition-all duration-500" />
     </Link>
   );
 }
 
-function Project() {
+function Project({ projects }: { projects: ProjectType[] }) {
   const headerRef = useGsapReveal<HTMLDivElement>({
     stagger: 0.15,
     distance: 30,
@@ -179,9 +148,9 @@ function Project() {
             ref={gridRef}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8 w-full"
           >
-            {PROJECTS.map((project) => (
+            {projects.map((project) => (
               <div key={project.id} className="h-full">
-                <ProjectCard {...project} />
+                <ProjectCard project={project} />
               </div>
             ))}
           </div>

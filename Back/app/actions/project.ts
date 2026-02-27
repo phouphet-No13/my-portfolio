@@ -19,8 +19,11 @@ export async function createProject(formData: FormData) {
   const title = formData.get("title") as string;
   const category = formData.get("category") as string;
   const image = formData.get("image") as string;
+  const coverImageRaw = formData.get("coverImage") as string | null;
+  const coverImage = coverImageRaw && coverImageRaw.trim() !== "" ? coverImageRaw : null;
   const description = formData.get("description") as string;
-  const link = formData.get("link") as string;
+  const linkRaw = formData.get("link") as string | null;
+  const link = linkRaw && linkRaw.trim() !== "" ? linkRaw : null;
   const tagsString = formData.get("tags") as string;
   
   const tags = tagsString.split(",").map(tag => tag.trim());
@@ -30,6 +33,7 @@ export async function createProject(formData: FormData) {
       title,
       category,
       image,
+      coverImage,
       description,
       link,
       tags,
@@ -43,8 +47,11 @@ export async function updateProject(id: number, formData: FormData) {
   const title = formData.get("title") as string;
   const category = formData.get("category") as string;
   const image = formData.get("image") as string;
+  const coverImageRaw = formData.get("coverImage") as string | null;
+  const coverImage = coverImageRaw && coverImageRaw.trim() !== "" ? coverImageRaw : null;
   const description = formData.get("description") as string;
-  const link = formData.get("link") as string;
+  const linkRaw = formData.get("link") as string | null;
+  const link = linkRaw && linkRaw.trim() !== "" ? linkRaw : null;
   const tagsString = formData.get("tags") as string;
   
   const tags = tagsString.split(",").map(tag => tag.trim());
@@ -55,6 +62,7 @@ export async function updateProject(id: number, formData: FormData) {
       title,
       category,
       image,
+      coverImage,
       description,
       link,
       tags,

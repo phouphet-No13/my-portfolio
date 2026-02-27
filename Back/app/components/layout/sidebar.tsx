@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { logOutAction } from "@/app/actions/auth";
 import {
-  Home,
+  LayoutDashboard,
   FolderKanban,
   Settings,
   ChevronLeft,
@@ -14,8 +15,19 @@ import {
 } from "lucide-react";
 
 export default function Sidebar() {
-  const [isProjectsOpen, setIsProjectsOpen] = useState(true);
-  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const pathname = usePathname();
+  const [isProjectsOpen, setIsProjectsOpen] = useState(
+    pathname.startsWith("/projects"),
+  );
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(
+    pathname.startsWith("/categories"),
+  );
+
+  // Keep accordions open if we navigate to their paths
+  useEffect(() => {
+    if (pathname.startsWith("/projects")) setIsProjectsOpen(true);
+    if (pathname.startsWith("/categories")) setIsCategoriesOpen(true);
+  }, [pathname]);
 
   return (
     <aside className="w-[280px] bg-white dark:bg-zinc-900 border-r border-[#f1f1f4] dark:border-zinc-800 flex flex-col h-screen sticky top-0">
@@ -35,18 +47,29 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
         <Link
-          href="/projects"
-          className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-lg transition-colors"
+          href="/dashboard"
+          className={`flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+            pathname === "/dashboard" || pathname === "/"
+              ? "text-[#06b6d4] bg-[#ecfeff] dark:bg-[#06b6d4]/10"
+              : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+          }`}
         >
-          <Home size={18} className="text-zinc-400" />
-          Home
+          <LayoutDashboard
+            size={18}
+            className={
+              pathname === "/dashboard" || pathname === "/"
+                ? "text-[#06b6d4]"
+                : "text-zinc-400"
+            }
+          />
+          Dashboard
         </Link>
 
         <div className="space-y-1 pt-1">
           <button
             onClick={() => setIsProjectsOpen(!isProjectsOpen)}
             className={`w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-              isProjectsOpen
+              pathname.startsWith("/projects")
                 ? "text-[#06b6d4] bg-[#ecfeff] dark:bg-[#06b6d4]/10"
                 : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:text-zinc-900 dark:hover:text-white"
             }`}
@@ -54,12 +77,23 @@ export default function Sidebar() {
             <div className="flex items-center gap-3">
               <FolderKanban
                 size={18}
-                className={isProjectsOpen ? "text-[#06b6d4]" : "text-zinc-400"}
+                className={
+                  pathname.startsWith("/projects")
+                    ? "text-[#06b6d4]"
+                    : "text-zinc-400"
+                }
               />
               Projects
             </div>
             {isProjectsOpen ? (
-              <ChevronDown size={14} className="text-[#06b6d4]/60" />
+              <ChevronDown
+                size={14}
+                className={
+                  pathname.startsWith("/projects")
+                    ? "text-[#06b6d4]/60"
+                    : "text-zinc-400"
+                }
+              />
             ) : (
               <ChevronRight size={14} className="text-zinc-400" />
             )}
@@ -70,7 +104,11 @@ export default function Sidebar() {
             <div className="pl-11 pr-3 py-1 space-y-2">
               <Link
                 href="/projects"
-                className="block text-[13px] text-[#06b6d4] hover:text-[#0891b2] font-medium transition-colors py-1"
+                className={`block text-[13px] font-medium transition-colors py-1 ${
+                  pathname === "/projects"
+                    ? "text-[#06b6d4]"
+                    : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                }`}
               >
                 All Projects
               </Link>
@@ -82,7 +120,7 @@ export default function Sidebar() {
           <button
             onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
             className={`w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-              isCategoriesOpen
+              pathname.startsWith("/categories")
                 ? "text-[#06b6d4] bg-[#ecfeff] dark:bg-[#06b6d4]/10"
                 : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 hover:text-zinc-900 dark:hover:text-white"
             }`}
@@ -91,13 +129,22 @@ export default function Sidebar() {
               <Blocks
                 size={18}
                 className={
-                  isCategoriesOpen ? "text-[#06b6d4]" : "text-zinc-400"
+                  pathname.startsWith("/categories")
+                    ? "text-[#06b6d4]"
+                    : "text-zinc-400"
                 }
               />
               Categories
             </div>
             {isCategoriesOpen ? (
-              <ChevronDown size={14} className="text-[#06b6d4]/60" />
+              <ChevronDown
+                size={14}
+                className={
+                  pathname.startsWith("/categories")
+                    ? "text-[#06b6d4]/60"
+                    : "text-zinc-400"
+                }
+              />
             ) : (
               <ChevronRight size={14} className="text-zinc-400" />
             )}
@@ -107,7 +154,11 @@ export default function Sidebar() {
             <div className="pl-11 pr-3 py-1 space-y-2">
               <Link
                 href="/categories"
-                className="block text-[13px] text-zinc-500 hover:text-zinc-900 transition-colors py-1"
+                className={`block text-[13px] font-medium transition-colors py-1 ${
+                  pathname === "/categories"
+                    ? "text-[#06b6d4]"
+                    : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                }`}
               >
                 All Categories
               </Link>
@@ -120,15 +171,26 @@ export default function Sidebar() {
       <div className="p-4 border-t border-[#f1f1f4] dark:border-zinc-800 space-y-1">
         <Link
           href="/projects"
-          className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-lg transition-colors"
+          className={`flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+            pathname.startsWith("/settings")
+              ? "text-[#06b6d4] bg-[#ecfeff] dark:bg-[#06b6d4]/10"
+              : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+          }`}
         >
-          <Settings size={18} className="text-zinc-400" />
+          <Settings
+            size={18}
+            className={
+              pathname.startsWith("/settings")
+                ? "text-[#06b6d4]"
+                : "text-zinc-400"
+            }
+          />
           Settings
         </Link>
         <form action={logOutAction}>
           <button
             type="submit"
-            className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors group"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -150,9 +150,29 @@ const Contact = () => {
     e.preventDefault();
     if (!validate()) return;
     setStatus("loading");
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus("success");
-    setForm({ name: "", email: "", message: "" });
+
+    try {
+      const res = await fetch("http://localhost:3001/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to send message");
+
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error(error);
+      setStatus("idle");
+      // Optional: Handle error UI here if you wish
+    }
   }
 
   return (
@@ -164,10 +184,10 @@ const Contact = () => {
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none -translate-x-1/2 translate-y-1/3" />
 
-      <div className="container relative z-10 px-4 md:px-6 mx-auto">
-        <div className="grid gap-12 grid-cols-1 lg:grid-cols-2 w-full pt-20 md:pt-32 pb-40">
+      <div className="container relative z-10 px-4 md:px-6 mx-auto max-w-7xl">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 w-full pt-20 md:pt-32 pb-40 justify-between items-start">
           {/* Left Column: Contact Info */}
-          <div ref={leftColRef} className="space-y-10">
+          <div ref={leftColRef} className="w-full lg:w-[45%] space-y-10">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 w-fit backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
@@ -245,7 +265,7 @@ const Contact = () => {
           {/* Right Column: Form */}
           <div
             ref={rightColRef}
-            className="relative bg-white/2 p-8 md:p-10 rounded-3xl border border-white/10 h-fit w-full max-w-xl self-start backdrop-blur-xl shadow-2xl overflow-hidden group"
+            className="relative bg-white/2 p-8 md:p-12 rounded-4xl border border-white/10 h-fit w-full lg:w-[55%] max-w-2xl self-center lg:self-start backdrop-blur-xl shadow-2xl overflow-hidden group"
           >
             {/* Subtle glow behind the form container */}
             <div className="absolute inset-0 bg-linear-to-br from-cyan-500/5 to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>

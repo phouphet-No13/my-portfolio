@@ -39,12 +39,13 @@ export default function Navbar() {
           href="/"
           className="group relative flex items-center gap-2 text-xl font-black tracking-tight transition-colors text-white overflow-hidden"
         >
-          <div className="w-8 h-8 rounded-lg bg-linear-to-tr from-blue-500 to-cyan-400 flex items-center justify-center shadow-[0_0_15px_rgba(34,211,238,0.4)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-300">
-            <span className="text-black text-sm">M</span>
+          <div className="w-12 h-12 flex items-center justify-center transition-all duration-300">
+            <img
+              src="/logo.svg"
+              alt="Meow Logo"
+              className="w-full h-full object-contain invert drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-300"
+            />
           </div>
-          <span className="relative z-10 group-hover:text-cyan-400 transition-colors duration-300">
-            Meow
-          </span>
         </Link>
 
         {/* Desktop Nav */}
@@ -56,7 +57,9 @@ export default function Navbar() {
                 key={href}
                 href={href}
                 className={`relative px-5 py-1 rounded-full transition-all duration-300 overflow-hidden group ${
-                  isActive ? "text-white font-bold" : "text-gray-400 hover:text-white"
+                  isActive
+                    ? "text-white font-bold"
+                    : "text-gray-400 hover:text-white"
                 }`}
               >
                 {isActive && (

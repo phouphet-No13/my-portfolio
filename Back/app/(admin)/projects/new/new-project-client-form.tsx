@@ -14,8 +14,11 @@ export default function NewProjectClientForm({
 }) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const coverInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedCover, setSelectedCover] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [coverPreviewUrl, setCoverPreviewUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -28,11 +31,27 @@ export default function NewProjectClientForm({
     }
   };
 
+  const handleCoverSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedCover(file);
+      setCoverPreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
   const handleClearImage = () => {
     setSelectedFile(null);
     setPreviewUrl(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+    }
+  };
+
+  const handleClearCover = () => {
+    setSelectedCover(null);
+    setCoverPreviewUrl(null);
+    if (coverInputRef.current) {
+      coverInputRef.current.value = "";
     }
   };
 
@@ -44,7 +63,7 @@ export default function NewProjectClientForm({
     const projectFormData = new FormData(formElement);
 
     if (!selectedFile) {
-      setErrorMsg("Please upload an image first.");
+      setErrorMsg("Please upload a thumbnail image first.");
       return;
     }
 
@@ -56,7 +75,7 @@ export default function NewProjectClientForm({
     setIsUploading(true);
 
     try {
-      // 1. Upload the image directly to local /public/uploads
+      // 1. Upload the thumbnail image directly to local /public/uploads
       const uploadFormData = new FormData();
       uploadFormData.append("file", selectedFile);
 
@@ -66,14 +85,29 @@ export default function NewProjectClientForm({
       });
 
       if (!uploadResponse.ok) {
-        throw new Error("Failed to upload image");
+        throw new Error("Failed to upload thumbnail image");
       }
 
       const uploadData = await uploadResponse.json();
-      const finalImageUrl = uploadData.url;
+      projectFormData.set("image", uploadData.url);
 
-      // 2. Prepare project data with the resulting image URL
-      projectFormData.set("image", finalImageUrl);
+      // 2. Upload cover image if selected
+      if (selectedCover) {
+        const coverUploadFormData = new FormData();
+        coverUploadFormData.append("file", selectedCover);
+
+        const coverUploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: coverUploadFormData,
+        });
+
+        if (!coverUploadResponse.ok) {
+          throw new Error("Failed to upload cover image");
+        }
+
+        const coverUploadData = await coverUploadResponse.json();
+        projectFormData.set("coverImage", coverUploadData.url);
+      }
 
       // 3. Trigger Server Action to save project to DB
       await createProject(projectFormData);
@@ -171,14 +205,14 @@ export default function NewProjectClientForm({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
-                  Project Link
+                  Project Link{" "}
+                  <span className="text-zinc-400 font-normal">(Optional)</span>
                 </label>
                 <input
                   name="link"
-                  required
                   disabled={isUploading}
                   className="w-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white text-sm rounded-lg px-3.5 py-2.5 outline-none focus:border-[#06b6d4] focus:ring-1 focus:ring-[#06b6d4] transition shadow-sm disabled:opacity-50"
-                  placeholder="https://example.com"
+                  placeholder="https://example.com (Optional)"
                 />
               </div>
 
@@ -250,15 +284,16 @@ export default function NewProjectClientForm({
         </div>
 
         {/* Right Column: Image Upload Area (Takes ~35% width) */}
-        <div className="w-full lg:w-[380px] shrink-0 flex flex-col gap-4">
+        <div className="w-full lg:w-[380px] shrink-0 flex flex-col gap-6">
+          {/* Thumbnail Image */}
           <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-5 space-y-4">
             <div>
               <h3 className="font-semibold text-zinc-900 dark:text-white">
-                Project Cover Image
+                Project Thumbnail
               </h3>
               <p className="text-xs text-zinc-500 mt-1">
-                Upload a high-quality cover image to represent this project in
-                the portfolio.
+                This image will act as the card cover in the primary projects
+                grid.
               </p>
             </div>
 
@@ -267,7 +302,7 @@ export default function NewProjectClientForm({
                 ${
                   previewUrl
                     ? "border-transparent bg-zinc-50 dark:bg-zinc-950 p-2"
-                    : "border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer min-h-[220px]"
+                    : "border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer min-h-[160px]"
                 }
               `}
               onClick={() => !previewUrl && fileInputRef.current?.click()}
@@ -310,14 +345,85 @@ export default function NewProjectClientForm({
                 </div>
               ) : (
                 <>
-                  <div className="w-12 h-12 bg-white dark:bg-zinc-700 rounded-full shadow-sm border border-zinc-200 dark:border-zinc-600 flex items-center justify-center mb-3">
-                    <UploadCloud className="text-[#06b6d4]" size={24} />
+                  <div className="w-10 h-10 bg-white dark:bg-zinc-700 rounded-full shadow-sm border border-zinc-200 dark:border-zinc-600 flex items-center justify-center mb-3">
+                    <UploadCloud className="text-[#06b6d4]" size={20} />
                   </div>
                   <span className="text-sm font-medium text-[#06b6d4]">
-                    Click to upload
+                    Upload Thumbnail
                   </span>
-                  <span className="text-xs text-zinc-500 mt-1">
-                    SVG, PNG, JPG or GIF (max. 5MB)
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Cover Image */}
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-5 space-y-4">
+            <div>
+              <h3 className="font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
+                Project Cover Image{" "}
+                <span className="text-xs font-normal text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-full">
+                  Optional
+                </span>
+              </h3>
+              <p className="text-xs text-zinc-500 mt-1">
+                A massive hero image shown at the top of the project detail
+                page.
+              </p>
+            </div>
+
+            <div
+              className={`relative border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-6 transition-all duration-200
+                ${
+                  coverPreviewUrl
+                    ? "border-transparent bg-zinc-50 dark:bg-zinc-950 p-2"
+                    : "border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer min-h-[160px]"
+                }
+              `}
+              onClick={() => !coverPreviewUrl && coverInputRef.current?.click()}
+            >
+              <input
+                type="file"
+                ref={coverInputRef}
+                className="hidden"
+                accept="image/*"
+                onChange={handleCoverSelect}
+                disabled={isUploading}
+              />
+
+              {coverPreviewUrl ? (
+                <div className="relative w-full aspect-21/9 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-black">
+                  <Image
+                    src={coverPreviewUrl}
+                    alt="Cover Preview"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/60 to-transparent p-3 pt-12 flex justify-between items-end">
+                    <span className="text-xs text-white font-medium truncate max-w-[200px] shadow-sm">
+                      {selectedCover?.name}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleClearCover();
+                      }}
+                      disabled={isUploading}
+                      className="bg-white/20 hover:bg-white/40 backdrop-blur border border-white/30 text-white rounded p-1.5 transition disabled:opacity-50"
+                      title="Clear cover image"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="w-10 h-10 bg-white dark:bg-zinc-700 rounded-full shadow-sm border border-zinc-200 dark:border-zinc-600 flex items-center justify-center mb-3">
+                    <UploadCloud className="text-[#06b6d4]" size={20} />
+                  </div>
+                  <span className="text-sm font-medium text-[#06b6d4]">
+                    Upload Hero Cover
                   </span>
                 </>
               )}

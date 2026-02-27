@@ -52,7 +52,9 @@ export function useGsapReveal<T extends HTMLElement>(
     else if (from === "left") fromVars.x = -distance;
     else if (from === "right") fromVars.x = distance;
 
-    const targets = stagger > 0 ? Array.from(el.children) : [el];
+    const targets = stagger > 0 ? Array.from(el.children).filter(Boolean) : [el].filter(Boolean);
+
+    if (targets.length === 0) return;
 
     const ctx = gsap.context(() => {
       gsap.from(targets, {

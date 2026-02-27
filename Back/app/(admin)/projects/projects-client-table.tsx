@@ -132,32 +132,13 @@ export default function ProjectsClientTable({
                   Date <ArrowUpDown size={12} className="text-zinc-300" />
                 </th>
                 <th className="font-medium p-4 py-3">Category</th>
-                <th className="font-medium p-4 py-3">Status</th>
+
                 <th className="font-medium p-4 py-3">Tags</th>
                 <th className="font-medium p-4 py-3 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800 text-zinc-600 dark:text-zinc-300">
               {filteredProjects.map((p) => {
-                const statuses = [
-                  {
-                    label: "Success",
-                    dot: "bg-emerald-500",
-                    box: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20",
-                  },
-                  {
-                    label: "Pending",
-                    dot: "bg-amber-500",
-                    box: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20",
-                  },
-                  {
-                    label: "Draft",
-                    dot: "bg-zinc-500",
-                    box: "bg-zinc-50 text-zinc-700 border-zinc-200 dark:bg-zinc-500/10 dark:text-zinc-400 dark:border-zinc-500/20",
-                  },
-                ];
-                const status = statuses[p.id % 3];
-
                 return (
                   <tr
                     key={p.id}
@@ -198,16 +179,7 @@ export default function ProjectsClientTable({
                       })}
                     </td>
                     <td className="p-4">{p.category}</td>
-                    <td className="p-4">
-                      <div
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border text-xs font-medium ${status.box}`}
-                      >
-                        <div
-                          className={`w-1.5 h-1.5 rounded-full ${status.dot}`}
-                        ></div>
-                        {status.label}
-                      </div>
-                    </td>
+
                     <td className="p-4">
                       <div className="flex gap-1">
                         {p.tags.slice(0, 2).map((tag) => (

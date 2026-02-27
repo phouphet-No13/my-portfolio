@@ -60,12 +60,13 @@ export default function Footer() {
               href="/"
               className="group relative flex items-center gap-2 text-2xl font-black tracking-tight transition-colors text-white overflow-hidden"
             >
-              <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-blue-500 to-cyan-400 flex items-center justify-center shadow-[0_0_15px_rgba(34,211,238,0.4)] group-hover:shadow-[0_0_25px_rgba(34,211,238,0.6)] transition-all duration-300">
-                <span className="text-black font-bold">M</span>
+              <div className="w-24 h-24 flex items-center justify-center transition-all duration-300">
+                <img
+                  src="/logo.svg"
+                  alt="Meow Logo"
+                  className="w-full h-full object-contain invert drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-300"
+                />
               </div>
-              <span className="relative z-10 group-hover:text-cyan-400 transition-colors duration-300">
-                Meow
-              </span>
             </Link>
             <p className="text-gray-400 text-sm max-w-xs text-center md:text-left">
               Crafting minimalistic, clean, and user-friendly web solutions in

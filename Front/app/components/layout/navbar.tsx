@@ -43,7 +43,7 @@ export default function Navbar() {
             <img
               src="/logo.svg"
               alt="Meow Logo"
-              className="w-full h-full object-contain invert drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-300"
+              className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-300"
             />
           </div>
         </Link>

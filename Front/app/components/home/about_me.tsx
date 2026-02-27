@@ -31,25 +31,23 @@ function AboutMe() {
             </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-              Crafting{" "}
+              Let's get to know {" "}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-400">
-                meaningful
+                each other. {" "}
               </span>
-              <br className="hidden lg:block" /> digital{" "}
               <span className="relative inline-block mt-2 lg:mt-0">
-                journeys
+                I'll introduce myself.
                 <span className="absolute -bottom-2 left-0 w-full h-1.5 bg-linear-to-r from-blue-500 to-cyan-400 rounded-full opacity-60"></span>
               </span>
-              .
             </h2>
           </div>
 
           <div className="relative p-6 lg:p-8 rounded-3xl bg-white/2 border border-white/5 backdrop-blur-md shadow-2xl">
             <p className="leading-relaxed text-base lg:text-lg text-gray-300">
               Hi there! I'm{" "}
-              <span className="text-white font-semibold">Alex</span>, a
+              <span className="text-white font-semibold">Phouphet CHANTHALUNGSY</span>,Or another name for me is Meow Designer. a
               passionate UI/UX Designer and Creative Developer based in the
-              vibrant city of Seattle. My heart lies in crafting web solutions
+              vibrant city of Vientiane, Laos. My heart lies in crafting web solutions
               that are not only user-friendly but also prioritize accessibility
               and simplicity.
             </p>
@@ -69,7 +67,7 @@ function AboutMe() {
           <div className="flex flex-wrap gap-6 lg:gap-12 items-center mt-2">
             <div className="flex flex-col gap-1">
               <span className="text-4xl font-bold text-white tracking-tight">
-                5<span className="text-blue-500">+</span>
+                4<span className="text-blue-500">+</span>
               </span>
               <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">
                 Years Exp.
@@ -78,7 +76,7 @@ function AboutMe() {
             <div className="w-px h-12 bg-white/10 hidden lg:block"></div>
             <div className="flex flex-col gap-1">
               <span className="text-4xl font-bold text-white tracking-tight">
-                50<span className="text-cyan-500">+</span>
+                30<span className="text-cyan-500">+</span>
               </span>
               <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">
                 Projects

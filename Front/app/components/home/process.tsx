@@ -90,21 +90,20 @@ function Process() {
           </div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-            <span className="text-white">Creating</span>{" "}
+            <span className="text-white">My work process. </span>{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-400">
-              Engaging
+              I hopefully it
             </span>{" "}
             <span className="relative inline-block">
-              Digital
+              will be
               <span className="absolute -bottom-2 left-0 w-full h-1.5 bg-linear-to-r from-cyan-400 to-blue-500 rounded-full opacity-40"></span>
             </span>{" "}
-            Journeys
+            help you.
           </h2>
           <p className="text-gray-400 text-lg leading-relaxed mt-2">
-            Based in the vibrant city of San Francisco, I am a UI/UX Designer
-            and Creative Developer dedicated to crafting captivating digital
-            experiences. My design philosophy centers around minimalism and
-            clarity.
+            I follow a structured approach to transform complex ideas into
+            seamless digital experiences, ensuring every project is delivered
+            with precision and purpose.
           </p>
         </div>
 

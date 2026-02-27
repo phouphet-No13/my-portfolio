@@ -66,8 +66,7 @@ function HeroSection() {
           </h1>
 
           <p className="text-gray-300 text-base md:text-lg lg:text-lg max-w-2xl leading-relaxed font-light">
-            I am a UI/UX Designer &amp; Creative Developer based in San
-            Francisco. I build minimal, clean, and accessible web solutions.
+            I am a UI/UX Designer &amp; Creative Developer based in Laos. I build minimal, clean, and accessible web solutions.
           </p>
         </div>
       </div>

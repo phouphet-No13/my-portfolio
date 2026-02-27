@@ -50,8 +50,8 @@ function About() {
                 Building with <span className="text-white">Passion</span>.
               </h1>
               <p className="text-gray-400 text-lg leading-relaxed max-w-lg">
-                I'm a multidisciplinary designer and developer based in San
-                Francisco, specializing in creating stunning digital experiences
+                I'm a multidisciplinary designer and developer based in
+                Vientiane, specializing in creating stunning digital experiences
                 that combine beautiful aesthetics with flawless functionality.
                 My approach is rooted in empathy, research, and a deep
                 understanding of user behavior.
@@ -61,14 +61,14 @@ function About() {
             {/* Quick Stats/Highlights */}
             <div className="flex gap-8 pt-4 border-t border-white/10">
               <div className="space-y-1">
-                <p className="text-3xl font-black text-white">5+</p>
+                <p className="text-3xl font-black text-white">4+</p>
                 <p className="text-sm font-medium tracking-wider text-cyan-400 uppercase">
                   Years Exp
                 </p>
               </div>
               <div className="w-px bg-white/10"></div>
               <div className="space-y-1">
-                <p className="text-3xl font-black text-white">50+</p>
+                <p className="text-3xl font-black text-white">30+</p>
                 <p className="text-sm font-medium tracking-wider text-cyan-400 uppercase">
                   Projects
                 </p>
@@ -122,9 +122,10 @@ function About() {
 
               <div className="flex flex-col gap-8">
                 {[
-                  { name: "UI/UX Design", value: 95 },
-                  { name: "Frontend Development", value: 90 },
-                  { name: "Motion & Animation", value: 85 },
+                  { name: "Ux/Ui Design", value: 95 },
+                  { name: "Frontend Development", value: 40 },
+                  { name: "Backend Development", value: 10 },
+                  { name: "Motion & Animation", value: 65 },
                 ].map((skill, index) => (
                   <div key={index} className="space-y-3 group">
                     <div className="flex justify-between items-end">

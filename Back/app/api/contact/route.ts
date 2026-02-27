@@ -27,6 +27,14 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
+      console.log("Email variables not set. Simulating email sending:");
+      console.log(`From: ${finalName} <${email}>`);
+      console.log(`Subject: New Portfolio Contact from ${finalName}${service ? ` - ${service}` : ''}`);
+      console.log(`Message: \n${message}`);
+      return NextResponse.json({ success: true, simulated: true }, { status: 200, headers: corsHeaders });
+    }
+
     // Configure Nodemailer Transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",

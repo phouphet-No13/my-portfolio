@@ -114,7 +114,7 @@ function Project({ projects }: { projects: ProjectType[] }) {
         {/* Header */}
         <div
           ref={headerRef}
-          className="flex flex-col items-center justify-center gap-6 text-center max-w-3xl"
+          className="flex flex-col items-center justify-center gap-6 text-center max-w-4xl"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 w-fit backdrop-blur-sm">
             <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
@@ -125,17 +125,15 @@ function Project({ projects }: { projects: ProjectType[] }) {
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-400">
-              Designing
+              Here are some
             </span>{" "}
-            Impactful{" "}
+            of{" "}
             <span className="relative inline-block">
-              Online
+              my projects
               <span className="absolute -bottom-2 left-0 w-full h-1.5 bg-linear-to-r from-cyan-400 to-blue-500 rounded-full opacity-50"></span>
-            </span>{" "}
-            Experiences
+            </span>{" "}  
           </h2>
-
-          <p className="text-gray-400 text-lg leading-relaxed mt-2 max-w-2xl px-4">
+          <p className="text-gray-400 text-lg leading-relaxed mt-2 max-w-5xl px-4">
             A selection of my recent work across branding, web design, and
             UI/UX. Each project is crafted with a focus on usability,
             aesthetics, and business goals.
@@ -143,7 +141,7 @@ function Project({ projects }: { projects: ProjectType[] }) {
         </div>
 
         {/* Grid */}
-        <div className="flex flex-col gap-12 w-full mt-4">
+        <div className="flex flex-col gap-12 w-full">
           <div
             ref={gridRef}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8 w-full"

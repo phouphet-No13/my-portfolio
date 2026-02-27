@@ -206,10 +206,10 @@ const Contact = () => {
                 </span>
               </h2>
               <p className="text-gray-400 text-lg leading-relaxed max-w-lg mt-4">
-                Feel free to reach out! I&apos;m a UI/UX Designer and Creative
-                Developer located in the vibrant city of San Francisco,
-                dedicated to crafting minimalistic, clean, and user-friendly web
-                solutions. Let&apos;s connect!
+                Have a project in mind or just want to say hello? I&apos;m
+                always open to discussing new opportunities, creative
+                challenges, or how I can help bring your vision to life.
+                Let&apos;s build something extraordinary together.
               </p>
             </div>
 

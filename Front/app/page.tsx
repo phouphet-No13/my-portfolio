@@ -6,7 +6,7 @@ import Project, { ProjectType } from "./components/home/project_catugory";
 
 async function getFeaturedProjects(): Promise<ProjectType[]> {
   try {
-    const res = await fetch("http://localhost:3001/api/projects", {
+    const res = await fetch("http://localhost:3000/api/projects", {
       next: { revalidate: 60 },
     });
     if (!res.ok) return [];

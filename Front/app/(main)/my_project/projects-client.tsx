@@ -240,7 +240,7 @@ interface ProjectCardProps {
 
 function ProjectCard({ project }: ProjectCardProps) {
   const isBackendImage = project.image.startsWith("/uploads");
-  const backendUrl = "http://localhost:3001";
+  const backendUrl = "";
   const imageUrl = isBackendImage
     ? `${backendUrl}${project.image}`
     : project.image.startsWith("http") || project.image.startsWith("/")

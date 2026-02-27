@@ -15,7 +15,7 @@ export interface Project {
 
 async function getProject(id: string): Promise<Project | null> {
   try {
-    const res = await fetch(`http://localhost:3001/api/projects`, {
+    const res = await fetch(`http://localhost:3000/api/projects`, {
       next: { revalidate: 60 },
     });
 
@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({
   const getImageUrl = (imagePath: string | null) => {
     if (!imagePath) return null;
     if (imagePath.startsWith("/uploads")) {
-      return `http://localhost:3001${imagePath}`;
+      return imagePath;
     }
     if (imagePath.startsWith("http") || imagePath.startsWith("/")) {
       return imagePath;
@@ -58,7 +58,7 @@ export default async function ProjectDetailPage({
 
   // Use Cover if available, otherwise fallback to Thumbnail for the hero section
   const heroImage = coverImageUrl || thumbnailUrl;
-  const isBackendImage = heroImage?.startsWith("http://localhost:3001");
+  const isBackendImage = heroImage?.startsWith("/uploads");
 
   return (
     <div className="w-full bg-[#0a0a0a] min-h-screen text-white font-sans selection:bg-cyan-500/30 pt-24 pb-12">

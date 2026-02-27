@@ -8,7 +8,7 @@ export default async function ProjectsPage() {
 
   try {
     // Attempt to fetch from the backend Next.js API
-    const res = await fetch("http://localhost:3001/api/projects", {
+    const res = await fetch("http://localhost:3000/api/projects", {
       next: { revalidate: 60 },
     });
 

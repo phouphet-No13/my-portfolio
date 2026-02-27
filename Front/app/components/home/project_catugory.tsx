@@ -18,7 +18,7 @@ export interface ProjectType {
 
 function ProjectCard({ project }: { project: ProjectType }) {
   const isBackendImage = project.image.startsWith("/uploads");
-  const backendUrl = "http://localhost:3001";
+  const backendUrl = "";
   const imageUrl = isBackendImage
     ? `${backendUrl}${project.image}`
     : project.image.startsWith("http") || project.image.startsWith("/")
@@ -131,7 +131,7 @@ function Project({ projects }: { projects: ProjectType[] }) {
             <span className="relative inline-block">
               my projects
               <span className="absolute -bottom-2 left-0 w-full h-1.5 bg-linear-to-r from-cyan-400 to-blue-500 rounded-full opacity-50"></span>
-            </span>{" "}  
+            </span>{" "}
           </h2>
           <p className="text-gray-400 text-lg leading-relaxed mt-2 max-w-5xl px-4">
             A selection of my recent work across branding, web design, and

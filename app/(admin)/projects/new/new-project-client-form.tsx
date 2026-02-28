@@ -187,7 +187,7 @@ export default function NewProjectClientForm({
                   disabled={isUploading || categories.length === 0}
                   className="w-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white text-sm rounded-lg px-3.5 py-2.5 outline-none focus:border-[#06b6d4] focus:ring-1 focus:ring-[#06b6d4] transition shadow-sm appearance-none disabled:opacity-50"
                 >
-                  {categories.map((cat) => (
+                  {categories.map((cat: { id: number; name: string }) => (
                     <option key={cat.id} value={cat.name}>
                       {cat.name}
                     </option>

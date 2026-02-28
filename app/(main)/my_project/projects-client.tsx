@@ -149,7 +149,7 @@ function ToolsFilter({ allTools, selectedTools, onToggle }: ToolsFilterProps) {
 
         {isOpen && (
           <ul className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl z-20 max-h-64 overflow-y-auto">
-            {allTools.map((tool) => {
+            {allTools.map((tool: string) => {
               const isChecked = selectedTools.includes(tool);
               return (
                 <li key={tool}>
@@ -216,7 +216,7 @@ function SelectedToolChips({ tools, onRemove }: SelectedToolChipsProps) {
   if (tools.length === 0) return null;
   return (
     <div className="flex flex-wrap gap-3 mt-4">
-      {tools.map((tool) => (
+      {tools.map((tool: string) => (
         <span
           key={tool}
           className="px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-sm flex items-center gap-2 backdrop-blur-sm shadow-[0_0_10px_rgba(34,211,238,0.1)]"
@@ -276,7 +276,7 @@ function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         <div className="flex flex-wrap gap-3 pt-6 mt-auto">
-          {project.tags.map((tag) => (
+          {project.tags.map((tag: string) => (
             <span
               key={tag}
               className="px-4 py-1.5 text-xs font-medium rounded-full bg-transparent border border-white/10 text-gray-400 transition-colors hover:text-white"

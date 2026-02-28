@@ -118,7 +118,7 @@ export default async function ProjectDetailPage({
             </h1>
 
             <div className="flex flex-wrap gap-2 mt-2">
-              {project.tags.map((tag) => (
+              {project.tags.map((tag: string) => (
                 <span
                   key={tag}
                   className="px-4 py-2 text-sm font-medium rounded-full bg-white/5 border border-white/10 text-gray-300 backdrop-blur-sm"
@@ -162,7 +162,7 @@ export default async function ProjectDetailPage({
           <div className="prose prose-invert prose-lg max-w-none prose-p:text-gray-300 prose-p:leading-relaxed prose-headings:text-white mb-12">
             {project.description
               .split("\n")
-              .map((paragraph, idx) =>
+              .map((paragraph: string, idx: number) =>
                 paragraph.trim() ? (
                   <p key={idx}>{paragraph}</p>
                 ) : (

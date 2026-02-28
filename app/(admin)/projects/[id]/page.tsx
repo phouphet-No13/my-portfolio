@@ -129,7 +129,7 @@ export default async function ProjectDetailPage(props: {
                 Tech Stack & Tags
               </h4>
               <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
+                {project.tags.map((tag: string) => (
                   <span
                     key={tag}
                     className="px-3 py-1.5 bg-[#ecfeff] dark:bg-[#06b6d4]/10 text-[#0891b2] dark:text-[#06b6d4] font-medium text-sm rounded-lg"

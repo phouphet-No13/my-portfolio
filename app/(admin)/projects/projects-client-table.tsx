@@ -56,7 +56,7 @@ export default function ProjectsClientTable({
     <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden flex flex-col mt-2">
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between border-b border-zinc-200 dark:border-zinc-800 px-2">
         <div className="flex items-center text-sm font-medium text-zinc-500 overflow-x-auto w-full lg:w-auto scrollbar-hide">
-          {categories.map((cat) => (
+          {categories.map((cat: string) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
@@ -182,7 +182,7 @@ export default function ProjectsClientTable({
 
                     <td className="p-4">
                       <div className="flex gap-1">
-                        {p.tags.slice(0, 2).map((tag) => (
+                        {p.tags.slice(0, 2).map((tag: string) => (
                           <span
                             key={tag}
                             className="px-2 py-0.5 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 rounded text-xs font-medium"

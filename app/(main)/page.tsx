@@ -3,15 +3,12 @@ import AboutMe from "@/app/components/home/about_me";
 import Process from "@/app/components/home/process";
 import Contact from "@/app/components/home/contact";
 import Project, { ProjectType } from "@/app/components/home/project_catugory";
+import { getProjects } from "@/app/actions/project";
 
 async function getFeaturedProjects(): Promise<ProjectType[]> {
   try {
-    const res = await fetch("http://localhost:3000/api/projects", {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return [];
-    const allProjects: ProjectType[] = await res.json();
-    return allProjects.slice(0, 4); // Get only the latest 4 projects for the homepage
+    const allProjects = await getProjects();
+    return allProjects.slice(0, 4) as unknown as ProjectType[];
   } catch (error) {
     console.error("Error fetching featured projects:", error);
     return [];

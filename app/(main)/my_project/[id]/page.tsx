@@ -1,6 +1,7 @@
 // import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getProjectById } from "@/app/actions/project";
 
 export interface Project {
   id: number;
@@ -15,14 +16,9 @@ export interface Project {
 
 async function getProject(id: string): Promise<Project | null> {
   try {
-    const res = await fetch(`http://localhost:3000/api/projects`, {
-      next: { revalidate: 60 },
-    });
-
-    if (!res.ok) return null;
-
-    const projects: Project[] = await res.json();
-    return projects.find((p) => p.id === parseInt(id)) || null;
+    const project = await getProjectById(parseInt(id));
+    if (!project) return null;
+    return project as unknown as Project;
   } catch (error) {
     console.error("Error fetching project:", error);
     return null;

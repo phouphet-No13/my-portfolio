@@ -12,7 +12,7 @@ export default async function CategoriesPage() {
 
   // Create a fast lookup map for counting projects per category
   const projectCounts = projects.reduce(
-    (acc, project: { category: string }) => {
+    (acc: Record<string, number>, project: { category: string }) => {
       acc[project.category] = (acc[project.category] || 0) + 1;
       return acc;
     },

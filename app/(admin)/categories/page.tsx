@@ -75,36 +75,42 @@ export default async function CategoriesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800 text-zinc-600 dark:text-zinc-300">
-                {categories.map((category) => (
-                  <tr
-                    key={category.id}
-                    className="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 transition-colors group"
-                  >
-                    <td className="p-4 pl-6 text-zinc-900 dark:text-white font-medium">
-                      {category.name}
-                    </td>
-                    <td className="p-4">
-                      <div className="inline-flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-medium px-2 py-0.5 rounded-full text-xs">
-                        {projectCounts[category.name] || 0} Projects
-                      </div>
-                    </td>
-                    <td className="p-4 pr-6 text-right flex justify-end">
-                      <form
-                        action={async () => {
-                          "use server";
-                          await deleteCategory(category.id);
-                        }}
-                      >
-                        <button
-                          type="submit"
-                          className="p-1.5 text-zinc-400 hover:text-red-500 transition-colors rounded hover:bg-red-50 dark:hover:bg-red-900/10 opacity-0 group-hover:opacity-100"
+                {categories.map(
+                  (category: {
+                    id: number;
+                    name: string;
+                    createdAt?: Date;
+                  }) => (
+                    <tr
+                      key={category.id}
+                      className="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 transition-colors group"
+                    >
+                      <td className="p-4 pl-6 text-zinc-900 dark:text-white font-medium">
+                        {category.name}
+                      </td>
+                      <td className="p-4">
+                        <div className="inline-flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-medium px-2 py-0.5 rounded-full text-xs">
+                          {projectCounts[category.name] || 0} Projects
+                        </div>
+                      </td>
+                      <td className="p-4 pr-6 text-right flex justify-end">
+                        <form
+                          action={async () => {
+                            "use server";
+                            await deleteCategory(category.id);
+                          }}
                         >
-                          <Trash2 size={16} />
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                ))}
+                          <button
+                            type="submit"
+                            className="p-1.5 text-zinc-400 hover:text-red-500 transition-colors rounded hover:bg-red-50 dark:hover:bg-red-900/10 opacity-0 group-hover:opacity-100"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  ),
+                )}
               </tbody>
             </table>
           )}

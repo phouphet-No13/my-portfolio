@@ -61,11 +61,13 @@ export default async function EditProjectPage(props: {
                 required
                 className="border border-zinc-300 dark:border-zinc-700 p-3 rounded-lg bg-transparent focus:ring-2 focus:ring-blue-500 outline-none"
               >
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.name}>
-                    {cat.name}
-                  </option>
-                ))}
+                {categories.map(
+                  (cat: { id: number; name: string; createdAt?: Date }) => (
+                    <option key={cat.id} value={cat.name}>
+                      {cat.name}
+                    </option>
+                  ),
+                )}
                 {categories.length === 0 && (
                   <option value="" disabled>
                     Go to Categories to add one first

@@ -46,7 +46,7 @@ export default function Navbar() {
               alt="Logo"
               width={40}
               height={40}
-              className="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-300"
+              className="w-12 h-12 object-contain brightness-0 invert drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-300"
             />
           </div>
         </Link>
